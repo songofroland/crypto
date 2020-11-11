@@ -16,7 +16,7 @@ RE_SERIES = fr"(?=(1{{}}1))"
 
 class TestBBS:
     def setup_class(self):
-        self.generator = BBSGenerator(prime_offset=100000000000)
+        self.generator = BBSGenerator(prime_offset=1000)
 
     def test_single_bits(self):
         assert 9725 < self.generator.rand_string(20000).count("0") < 10275
@@ -31,6 +31,10 @@ class TestBBS:
 
         series_6_or_more = len(re.findall("0{6,}", generated_string))
         assert ACCEPTED_SERIES["6"][0] < series_6_or_more < ACCEPTED_SERIES["6"][1]
+
+    def test_long_series(self):
+        long_series = len(re.findall("0{26,}", self.generator.rand_string(20000)))
+        assert long_series == 0
 
     def test_poker(self):
         calculated_bits = {str(i): 0 for i in range(16)}
