@@ -1,7 +1,6 @@
 import random
 
-from math import gcd, sqrt
-from itertools import count, islice
+from math import gcd
 
 
 class BBSGenerator:
@@ -35,7 +34,3 @@ class BBSGenerator:
         while num % 4 != 3 or not self._is_prime(num):
             num += 1
         return num
-
-    @staticmethod
-    def _is_prime(n: int):
-        return n > 1 and all(n % i for i in islice(count(2), int(sqrt(n) - 1)))

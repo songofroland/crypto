@@ -2,6 +2,8 @@ from itertools import count, islice
 
 from math import gcd, sqrt
 
+from math import gcd
+
 
 def next_prime(offset: int = 0) -> int:
     if (not offset & 1) and (offset != 2):
@@ -28,3 +30,25 @@ def is_prime(num: int) -> bool:
     if not num & 1:
         return False
     return pow(2, num - 1, num) == 1
+
+
+def get_smallest_co_prime(M: int) -> int:
+    for i in range(2, M):
+        if gcd(i, M) == 1:
+            return i
+
+
+def egcd(a, b):
+    if a == 0:
+        return (b, 0, 1)
+    else:
+        g, y, x = egcd(b % a, a)
+        return (g, x - (b // a) * y, y)
+
+
+def get_modular_inverse(a: int, m: int) -> int:
+    g, x, y = egcd(a, m)
+    if g != 1:
+        raise Exception("modular inverse does not exist")
+    else:
+        return x % m
