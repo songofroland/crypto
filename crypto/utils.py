@@ -53,19 +53,17 @@ def get_modular_inverse(a: int, m: int) -> int:
     else:
         return x % m
 
-def lagrange_interpolate(x, x_s, y_s, p):
-    """
-    Find the y-value for the given x, given n (x, y) points;
-    k points will define a polynomial of up to kth order.
-    """
+
+def PI(vals):
+    accum = 1
+    for v in vals:
+        accum *= v
+    return accum
+
+
+def lagrange_interpolate(x, p, x_s, y_s):
     k = len(x_s)
-    assert k == len(set(x_s)), "points must be distinct"
-    def PI(vals):  # upper-case PI -- product of inputs
-        accum = 1
-        for v in vals:
-            accum *= v
-        return accum
-    nums = []  # avoid inexact division
+    nums = []
     dens = []
     for i in range(k):
         others = list(x_s)
@@ -76,23 +74,13 @@ def lagrange_interpolate(x, x_s, y_s, p):
     num = sum([divmod(nums[i] * den * y_s[i] % p, dens[i], p) for i in range(k)])
     return (divmod(num, den, p) + p) % p
 
-def divmod(num, den, p):
-    """Compute num / den modulo prime p
 
-    To explain what this means, the return value will be such that
-    the following is true: den * _divmod(num, den, p) % p == num
-    """
+def divmod(num, den, p):
     inv, _ = extended_gcd(den, p)
     return num * inv
 
+
 def extended_gcd(a, b):
-    """
-    Division in integers modulus p means finding the inverse of the
-    denominator modulo p and then multiplying the numerator by this
-    inverse (Note: inverse of A is B such that A*B % p == 1) this can
-    be computed via extended Euclidean algorithm
-    http://en.wikipedia.org/wiki/Modular_multiplicative_inverse#Computation
-    """
     x = 0
     last_x = 1
     y = 1
