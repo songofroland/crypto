@@ -29,7 +29,7 @@ MODE = FREE_INPUT
 
 run = True
 while run:
-    results = {}
+    results: dict = {}
     if MODE == FREE_INPUT:
         data = input("Enter the text to hash: ")
         for name, func in hash_funcs.items():
