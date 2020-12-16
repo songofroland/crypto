@@ -21,8 +21,7 @@ def merge_images(img_matrix_1: List[list], img_matrix_2: List[list]) -> Image:
     image = Image.new("1", (len(img_matrix_1[0]), len(img_matrix_1)))
     for i in range(image.height):
         for j in range(image.width):
-            pixel = BLACK if img_matrix_1[i][j] != img_matrix_2[i][j] else WHITE
-            image.putpixel((j, i), pixel)
+            image.putpixel((j, i), min(img_matrix_2[i][j], img_matrix_1[i][j]))
     return image
 
 
