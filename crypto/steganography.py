@@ -1,6 +1,8 @@
+from itertools import islice
+
 import numpy as np
 from PIL import Image
-from itertools import islice
+
 from utils import visualize_array, random_string
 
 
@@ -49,5 +51,4 @@ if __name__ == "__main__":
         encoded = encode_in_image(source_image, bytearray(payload, "ascii"))
         visualize_array(encoded)
         decoded = decode_from_image(encoded, len(payload) * 8)
-        print(len(payload), len(decoded))
         assert decoded == payload
