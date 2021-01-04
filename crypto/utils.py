@@ -1,8 +1,16 @@
-from itertools import count, islice
-
-from math import gcd, sqrt
-
+from PIL import Image
+import random
+import string
 from math import gcd
+import numpy as np
+
+
+def random_string(length: int) -> str:
+    return "".join(random.choices(string.ascii_uppercase + string.digits, k=length))
+
+
+def visualize_array(arr: np.ndarray) -> None:
+    Image.fromarray(np.uint8(arr)).convert("RGB").show()
 
 
 def next_prime(offset: int = 0) -> int:
@@ -61,7 +69,6 @@ def PI(vals):
     return accum
 
 
-# TODO: Make it by myself
 def lagrange_interpolate(x, p, x_s, y_s):
     k = len(x_s)
     nums = []
